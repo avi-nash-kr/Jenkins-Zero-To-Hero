@@ -1,10 +1,20 @@
 pipeline {
   agent {
     docker {
-      image 'avinashkumar8/devops-agent:latest'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+      image 'docker:27.0.1-dind'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
     }
   }
+
+  stages {
+    stage('Setup Tools') {
+      steps {
+        sh '''
+          apk update
+          apk add --no-cache openjdk17 maven git
+        '''
+      }
+    }
   stages {
     stage('Checkout') {
       steps {
