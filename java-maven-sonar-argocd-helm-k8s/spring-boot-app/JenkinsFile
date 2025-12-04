@@ -6,7 +6,7 @@ pipeline {
       }
     }
   
-    stages {
+stages {
       stage('Setup Tools') {
         steps {
           sh '''
@@ -15,7 +15,6 @@ pipeline {
           '''
         }
       }
-    stages {
       stage('Checkout') {
         steps {
           sh 'echo passed'
