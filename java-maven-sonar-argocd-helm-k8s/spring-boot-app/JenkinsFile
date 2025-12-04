@@ -1,27 +1,27 @@
 pipeline {
-  agent {
-    docker {
-      image 'docker:27.0.1-dind'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-    }
-  }
-
-  stages {
-    stage('Setup Tools') {
-      steps {
-        sh '''
-          apk update
-          apk add --no-cache openjdk17 maven git
-        '''
+    agent {
+      docker {
+        image 'docker:27.0.1-dind'
+        args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
       }
     }
-  stages {
-    stage('Checkout') {
-      steps {
-        sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+  
+    stages {
+      stage('Setup Tools') {
+        steps {
+          sh '''
+            apk update
+            apk add --no-cache openjdk17 maven git
+          '''
+        }
       }
-    }
+    stages {
+      stage('Checkout') {
+        steps {
+          sh 'echo passed'
+          //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+        }
+      }
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
