@@ -55,6 +55,7 @@ stages {
       }
     }
     stage('Update Deployment File') {
+            agent any    // <---- FIX #1: forces execution outside Docker
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
             GIT_USER_NAME = "avi-nash-kr"
@@ -63,6 +64,8 @@ stages {
             checkout scm
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
+                    echo "Running git commands on Jenkins host..."
+                    git rev-parse --is-inside-work-tree
                     git config user.email "avi123nash123@gmail.com"
                     git config user.name "Avinash Kumar"
                     BUILD_NUMBER=${BUILD_NUMBER}
