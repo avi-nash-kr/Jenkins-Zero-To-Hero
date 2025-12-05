@@ -60,6 +60,7 @@ stages {
             GIT_USER_NAME = "avi-nash-kr"
         }
         steps {
+            checkout scm
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "avi123nash123@gmail.com"
